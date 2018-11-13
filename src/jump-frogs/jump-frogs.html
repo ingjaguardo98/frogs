@@ -1,0 +1,71 @@
+<link rel="import" href="../../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../../bower_components/polymer/lib/elements/dom-repeat.html">
+
+<dom-module id="jump-frogs">
+  <template>
+    <style>
+      :host {
+        display: flex;
+        flex-direction: row;       
+      }
+
+      .leaf-empty {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border: solid 2px black;
+        width: 30px;
+        height: 30px;
+        font-size: 8px;
+      }
+
+      .bg-frog {
+        background-color: yellowgreen;
+      }
+    </style>
+
+    <template is="dom-repeat" items="[[arrayFrogs]]">
+      <div class$="leaf-empty [[item.class]]">[[item.name]]</div>
+    </template>
+  </template>
+
+  <script>
+    /**
+     * @customElement
+     * @polymer
+     */
+    class JumpFrogs extends Polymer.Element {
+      static get is() { return 'jump-frogs'; }
+      static get properties() {
+        return {
+          leaf: {
+            type: Number,
+            value: 0
+          },
+          arrayFrogs: {
+            type: Array,
+            value: []
+          }
+        };
+      }
+
+      connectedCallback() {
+        super.connectedCallback();
+        for (let i=0;i<this.leaf;i++) {
+          this.push('arrayFrogs', {name:null, class:''});
+        }
+        let position = 0;
+        setInterval(() => {
+          let jumps = Math.floor(Math.random() * 4);
+          this.splice('arrayFrogs',position,1,{name:null, class:''});
+          position = position + jumps;
+          position = position >= this.leaf ? 0 : position;
+          this.splice('arrayFrogs',position,1,{name:'frog', class:'bg-frog'});
+          console.log(this.arrayFrogs);
+        },2000);
+      }
+    }
+
+    window.customElements.define(JumpFrogs.is, JumpFrogs);
+  </script>
+</dom-module>

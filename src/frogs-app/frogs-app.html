@@ -1,0 +1,29 @@
+<link rel="import" href="../../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../jump-frogs/jump-frogs.html">
+
+<dom-module id="frogs-app">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+    </style>
+    <jump-frogs leaf="15"></jump-frogs>
+  </template>
+
+  <script>
+    /**
+     * @customElement
+     * @polymer
+     */
+    class FrogsApp extends Polymer.Element {
+      static get is() { return 'frogs-app'; }
+      static get properties() {
+        return {
+        };
+      }
+    }
+
+    window.customElements.define(FrogsApp.is, FrogsApp);
+  </script>
+</dom-module>
